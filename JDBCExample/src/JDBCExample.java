@@ -8,10 +8,10 @@ import java.sql.Statement;
 public class JDBCExample {
 
 	public static void main(String[] args) {
-		String url = "jdbc:mysql://mysqladmin.ipage.com/mysqladmin/tbl_properties_structure.php?db=testing_data_1";
+		String url = "jdbc:mysql://mysql1000.mochahost.com:3306/gustavo_jdbcexample";
 		Connection con;
 		Statement stmt;
-		String getBooks = "SELECT * FROM 'book'";
+		String getBooks = "SELECT * FROM `book`";
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -21,15 +21,15 @@ public class JDBCExample {
 			System.err.println(e.getMessage());
 		}
 		try {
-			con = DriverManager.getConnection(url, "gustavobr", "donner25");
+			con = DriverManager.getConnection(url, "gustavo_br", "donner26");
 			System.out.println("connected");
 			stmt = con.createStatement();
 			
 			ResultSet rs = stmt.executeQuery(getBooks);
 			while (rs.next()) {
 				String s = rs.getString("title");
-				String tp = rs.getNString("totalpages");
-				System.out.println(s + ",   " + tp + " pages");
+				String tp = rs.getNString("author");
+				System.out.println(s + ",   " + tp);
 			}
 			
 		} catch (SQLException e) {
