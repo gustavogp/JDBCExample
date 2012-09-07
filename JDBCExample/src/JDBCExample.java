@@ -7,11 +7,12 @@ import java.sql.Statement;
 
 public class JDBCExample {
 
-	public static void main(String[] args) {
+	public static void main() {
 		String url = "jdbc:mysql://mysql1000.mochahost.com:3306/gustavo_jdbcexample";
 		Connection con;
 		Statement stmt;
 		String getBooks = "SELECT * FROM `book`";
+	//	List<List<String,String>> returnArray;
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -30,6 +31,7 @@ public class JDBCExample {
 				String s = rs.getString("title");
 				String tp = rs.getNString("author");
 				System.out.println(s + ",   " + tp);
+				GuiJDBCE.output(s, tp);
 			}
 			
 		} catch (SQLException e) {
