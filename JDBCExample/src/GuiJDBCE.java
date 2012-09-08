@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,6 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 
+@SuppressWarnings("serial")
 public class GuiJDBCE extends JPanel
 					implements ActionListener {
 	
@@ -44,6 +46,7 @@ public class GuiJDBCE extends JPanel
 	@Override
 	public void actionPerformed(ActionEvent ev) {
 		if(ev.getSource() == runButton){
+			log.append("Running..." + newLine);
 			SwingUtilities.invokeLater(new Runnable(){
 				public void run(){
 					runButtonAction();
@@ -54,8 +57,26 @@ public class GuiJDBCE extends JPanel
 	public void runButtonAction() {
 		JDBCExample.main();
 	}
-	public static void output(String title, String author) {
-		log.append("Title: " + title + " Author: " + author + newLine);
+	public static void output(ArrayList<ArrayList<String>> returnArray) {
+		ArrayList<String> titleArray = returnArray.get(0);
+		ArrayList<String> authorArray = returnArray.get(1);
+		
+		for (int i = 0; i < titleArray.size(); i++){
+			log.append("Title: " + titleArray.get(i) + " Author: " + authorArray.get(i) + newLine);
+		}
+		
+	}
+	public static void errorDriver(String err) {
+		log.append("Error loading driver: " + err + newLine);
+	}
+	public static void errorConnecting(String err) {
+		log.append("Error connecting to DB: " + err + newLine);
+	}
+	public static void connectedMsg() {
+		log.append("Connected" + newLine);
+	}
+	public static void driverLoadedMsg() {
+		log.append("Driver Loaded" + newLine);
 	}
 	public static void createAndShow() {
 		JFrame frame = new JFrame("JDBC Example");
